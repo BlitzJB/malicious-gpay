@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Pay</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        :root {
+            --borderprops: 6px solid;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif;;
+        }
+        .container {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #video, .overlay {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 100%;    
+        }
+
+        #video {
+            scale: 4;
+        }
+
+        .overlay {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.4);
+            clip-path: polygon(0% 0%, 0% 100%, 15% 100%, 15% 15%, 85% 15%, 85% 50%, 15% 50%, 15% 100%, 100% 100%, 100% 0%);
+        }
+
+        .crosshair__chip {
+            position: absolute;
+            height: 50px; width: 50px;
+        }
+        
+        .tl {
+            top: 13%; left: 11.5%;
+            border-top: var(--borderprops) #DF6860; border-left: var(--borderprops) #DF6860;
+            border-top-left-radius: 2em;
+        }
+        
+        .tr {
+            top: 13%; right: 11.5%;
+            border-top: var(--borderprops) #D88200; border-right: var(--borderprops) #D88200;
+            border-top-right-radius: 2em;
+        }
+
+        .bl {
+            bottom: 48%; left: 11.5%;
+            border-bottom: var(--borderprops) #4B8DF7; border-left: var(--borderprops) #4B8DF7;
+            border-bottom-left-radius: 2em;
+        }
+
+        .br {
+            bottom: 48%; right: 11.5%;
+            border-bottom: var(--borderprops) #1DA446; border-right: var(--borderprops) #1DA446;
+            border-bottom-right-radius: 2em;
+        }
+
+        .upload {
+            background-color: white;
+            color: rgb(30, 30, 30);
+            width: fit-content;
+            padding: .7em 2em;
+            display: flex;
+            align-items: center;
+            border-radius: 50vw;
+            position: absolute; 
+            left: 19%;
+            top: 54%;
+            scale: .8;
+        }
+
+        .upload__label {
+            margin-left: .5em;
+            font-size: .9rem;
+            font-weight: 500;
+        }
+
+        .upload__icon {
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .iconbar {
+            display: flex;
+            margin-top: 1.5em;
+            padding: 0 1em;
+        }
+
+        .margin-left-auto {
+            margin-left: auto;
+        }
+
+        .iconbar__icon {
+            font-size: 1.5em;
+            padding: .1em .4em;
+            color: white;
+        }
+
+        .bottomprompt {
+            background-color: #303135;
+            margin-top: 75vh;
+            height: 20em;
+            color: rgb(227, 227, 227);
+            border-radius: 1em;
+        }
+
+        .notch {
+            height: 30px;
+            position: relative;
+        }
+
+        .notch::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: calc(50% - 15px);
+            height: 2px; width: 30px;
+            background-color: rgb(234, 234, 234);
+            border-radius: 50vw;
+        }
+
+        .scan__header, .scan__subtext {
+            text-align: center;
+            letter-spacing: .1px;
+        }
+
+        .scan__header {
+            font-size: 13px;
+        }
+
+        .scan__subtext {
+            font-size: 12.5px;
+            color: rgb(151, 151, 151);
+            margin-top: 5px;
+        }
+
+        .bottomline {
+            height: 1px;
+            background-color: rgb(88, 88, 88);
+            margin-top: 17px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video autoplay="true" id="video"></video>
+    </div>
+    <div class="overlay">
+        <div class="iconbar">
+            <span class="iconbar__icon material-symbols-outlined">
+                close
+            </span>
+            <span class="iconbar__icon material-symbols-outlined margin-left-auto">
+                flashlight_on
+            </span>
+            <span class="iconbar__icon material-symbols-outlined">
+                qr_code_2
+            </span>
+            <span class="iconbar__icon material-symbols-outlined">
+                more_vert
+            </span>
+        </div>
+        <div class="crosshair__chip tr"></div>
+        <div class="crosshair__chip tl"></div>
+        <div class="crosshair__chip br"></div>
+        <div class="crosshair__chip bl"></div>
+        <div class="upload">
+            <span class="material-symbols-outlined upload__icon">
+                image
+            </span>
+            <span class="upload__label">
+                Upload from gallery
+            </span>
+        </div>
+        <div class="bottomprompt">
+            <div class="notch"></div>
+            <div class="scan__header">Scan any QR code to pay</div>
+            <div class="scan__subtext">GooglePay • PhonePe • PayTM • UPI</div>
+            <div class="bottomline"></div>
+        </div>
+    </div>
+    <script>
+        const video = document.querySelector("#video");
+
+        function mountVideoStream() {
+            if (!navigator.mediaDevices.getUserMedia) return
+
+            navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+                video.srcObject = stream;
+            })
+        }
+
+        mountVideoStream()
+    </script>
+</body>
+</html>
