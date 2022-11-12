@@ -373,6 +373,7 @@
         const bankingName = document.getElementById('bankingnameSpan')
         const bankingNameDiv = document.querySelector('.bankingname')
         const avatar = document.querySelector('.avatar')
+        const gotIt = document.querySelector('.gotit')
 
         bankingNameDiv.style.display = 'none'
 
@@ -395,6 +396,10 @@
                 }
             })
         }
+
+        gotIt.addEventListener('click', () => {
+            window.location.href = '/'
+        })
 
         document.addEventListener('DOMContentLoaded', () => {
             mountData()
