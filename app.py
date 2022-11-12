@@ -5,7 +5,7 @@ app = Flask(__name__, static_folder="./static")
 
 @app.route('/')
 def _():
-    return render_template('index.html')
+    return render_template('home.html')
 
 
 @app.route('/scan')

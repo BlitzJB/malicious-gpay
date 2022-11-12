@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Pay</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        
+        .profiles {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 3.5rem;
+            height: 3.5rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: white;
+            border-radius: 50vw;
+        }
+        
+        .profile {
+            width: 100px;
+            box-shadow: 0 0 10px 0 rgba(128, 128, 128, 0.347);
+            margin: .8em .4em;
+            border-radius: .5em;
+        }
+        
+        .receiver {
+            margin: 1em;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgb(68, 68, 68);
+        }
+        
+        .action {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px 0 rgba(128, 128, 128, 0.347);
+            padding: 1em;
+            border-radius: .5em;
+            height: 100px;
+            width: 70px;
+        }
+        
+        .action__icon {
+            margin-bottom: 1rem;
+            font-size: 2.5em;
+        }
+        
+        .action__label {
+            font-size: .9rem;
+            margin-bottom: auto;
+            text-align: center;
+        }
+
+        .add_modal { 
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 999;
+            background-color: rgba(0, 0, 0, 0.663);
+            color: white;
+        }
+
+        .add_modal_visible {
+            display: block;
+        }
+
+        .add_modal_form {
+            display: flex;
+            flex-direction: column;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="add_modal add_modal_visible">
+        <form class="add_modal_form">
+            <input type="text" placeholder="receiverId" name="receiverId" id="receiverId">
+            <input type="text" name="upiId" id="upiId" placeholder="upiId">
+            <input type="text" name="bankingName" id="bankingName" placeholder="bankingName">
+            <input type="text" name="avatarChar" id="avatarChar" placeholder="avatarChar">
+            <input type="color" name="avatarColor" id="avatarColor" placeholder="avatarColor">
+            <input type="submit" value="Add" placeholder="receiverId">
+        </form>
+        <button id="close_modal">close</button>
+    </div>
+    <h1>Actions</h1>
+    <div class="actions">
+        <div class="action">
+            <span class="material-symbols-outlined action__icon">
+                qr_code_scanner
+            </span>
+            <span class="action__label">Scan to pay</span>
+        </div>
+        <div class="action" id="add">
+            <span class="material-symbols-outlined action__icon">
+                add
+            </span>
+            <span class="action__label">Add profile</span>
+        </div>
+        <div class="action">
+            <span class="material-symbols-outlined action__icon">
+                manage_accounts
+            </span>
+            <span class="action__label">Manage profiles</span>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <h1>Profiles</h1>
+    <div class="profiles" id="profiles"></div>
+    <script>
+        // addProfile({receiverId: 'wow'})
+        // deleteProfile(6619)
+        // const id = addProfile({receiverId: 'receiverid', upiId: 'upiid@okupi', avatarChar: 'K', avatarColor: '000000'})
+        // console.log(id)
+        // payProfile(9380)
+
+        const togglers = ['close_modal', 'add']
+        const addModal = document.querySelector('.add_modal')
+        togglers.forEach(id => {
+            document.getElementById(id).addEventListener('click', () => {
+                addModal.classList.toggle('add_modal_visible')
+            })
+        })
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.add_modal_form').addEventListener('submit', (e) => {
+                handleAddFormSubmit(e)
+            })
+        })
+
+        function handleAddFormSubmit(e) {
+            e.preventDefault()
+            const form = e.target
+            const profile = {
+                receiverId: form.receiverId.value,
+                upiId: form.upiId.value,
+                bankingName: form.bankingName.value,
+                avatarChar: form.avatarChar.value,
+                avatarColor: form.avatarColor.value,
+            }
+            addProfile(profile)
+        }
+
+        function loadProfiles() {
+            if (!('profiles' in localStorage)) {
+                localStorage.setItem('profiles', '[]')
+                return []
+            }
+            return JSON.parse(localStorage.getItem('profiles'))
+        }
+
+        function addProfile({ receiverId, upiId, bankingName, avatarChar, avatarColor }) {
+            let existing = loadProfiles()
+            let profile = {
+                id: Math.floor(Math.random() * 10000), // terrible way, but should work for now
+                receiverId: receiverId,
+                upiId: upiId,
+                bankingName: bankingName,
+                avatarChar: avatarChar,
+                avatarColor: avatarColor
+            }
+            existing.push(profile)
+            localStorage.setItem('profiles', JSON.stringify(existing))
+            return profile.id
+        }
+        
+        function deleteProfile(id) {
+            let existing = loadProfiles()
+            existing = existing.filter((elem) => {
+                return elem.id != id
+            })
+            localStorage.setItem('profiles', JSON.stringify(existing))
+        }
+        function payProfile(id) {
+            let existing = loadProfiles()
+            existing = existing.filter((elem) => {
+                return elem.id == id
+            })
+            if (!existing) {
+                return
+            }
+            let profile = existing[0]
+            const redirectTo = `/enter_amount?receiverId=${profile.receiverId}&upiId=${profile.upiId}&bankingName=${profile.bankingName}&avatarChar=${profile.avatarChar}&avatarColor=${profile.avatarColor}`
+            window.location.href = redirectTo
+        }
+
+        function mountUI(container) {
+            let profiles = loadProfiles()
+            profiles.forEach(profile => {
+                const profileDiv = document.createElement('div')
+                profileDiv.setAttribute('class', 'profile')
+                profileDiv.addEventListener('click', () => {
+                    payProfile(profile.id)
+                })
+                profileDiv.innerHTML = `
+                    <div class="avatar" style="background-color: purple;"></div>
+                    <div class="receiver"></div>
+                `
+                const avatarChar = profileDiv.querySelector('.avatar')
+                avatarChar.style.backgroundColor = profile.avatarColor
+                const receiver = profileDiv.querySelector('.receiver')
+                avatarChar.innerHTML = profile.avatarChar
+                receiver.innerHTML = profile.receiverId
+                container.appendChild(profileDiv)
+            })
+        }
+
+        mountUI(document.getElementById('profiles'))
+    </script>
+</body>
+</html>
