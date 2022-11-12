@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Pay</title>
+    <link rel="manifest" href="../manifest.json">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
@@ -114,10 +115,12 @@
 
         .bottomprompt {
             background-color: #303135;
-            margin-top: 75vh;
+            margin-top: 80vh;
             height: 20em;
             color: rgb(227, 227, 227);
             border-radius: 1em;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
 
         .notch {
@@ -200,12 +203,30 @@
         function mountVideoStream() {
             if (!navigator.mediaDevices.getUserMedia) return
 
-            navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+            navigator.mediaDevices.getUserMedia({ video: {facingMode: 'environment'} }).then((stream) => {
                 video.srcObject = stream;
             })
         }
 
         mountVideoStream()
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded');
+            if ('serviceWorker' in navigator) {
+                console.log('CLIENT: service worker registration in progress.');
+                navigator.serviceWorker.register('../sw.js', {
+                    scope: '.'
+                })
+                    .then(function(registration) {
+                        console.log('Service Worker Registered');
+                    })
+                    .catch(function(err) {
+                        console.log('Service Worker Failed', err);
+                    });
+            } else {
+                console.log('CLIENT: service worker is not supported.');
+            }
+        });
     </script>
 </body>
 </html>
