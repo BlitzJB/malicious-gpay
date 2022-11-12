@@ -5,8 +5,393 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Pay</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        body {
+            padding: 0; margin: 0;
+            height: 100vh; width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .paid__video {
+            display: flex;
+            margin-top: 7rem;
+        }
+
+        .paid__video > video {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .iconbar {
+            display: flex;
+            margin-top: 1em;
+            padding: 0 1em;
+        }
+
+        .margin-left-auto {
+            margin-left: auto;
+        }
+
+        .iconbar__icon {
+            font-size: 1.5em;
+            padding: .1em .4em;
+            color: black;
+        }
+
+        .avatar {
+            width: 3.5rem;
+            height: 3.5rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: white;
+            border-radius: 50vw;
+        }
+
+        .receiver, .upiid, .bankingname, .paymentdate, .upiid, .transactionid {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .bankingname {
+            font-size: 13px;
+        }
+
+        .receiver, .paymentdate {
+            font-weight: 500;
+            margin-top: 1em;
+        }
+
+        .upiid, .bankingname, .transactionid, .paymentdate {
+            color: rgb(69, 69, 69);
+        }
+
+        .paymentdate, .transactionid {
+            font-size: 12px;
+        }
+
+        .amountselector {
+            display: flex;
+            align-items:  center;
+            justify-content: center;
+            margin-top: 1.5em;
+        }
+
+        .rupee {
+            font-size: 1.6em;
+        }
+
+        .amount {
+            outline: none;
+            border: none;
+            font-size: 3rem;
+            width: 50px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          display: none;
+        }
+
+        .note {
+            width: 5em;
+            padding: 1em 2.2em;
+            border: none;
+            background-color: rgb(234, 238, 239);
+            border-radius: 1em;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1.5em;
+        }
+
+        .note::placeholder {
+            color: rgb(79, 79, 79);
+        }
+
+        .choose {
+            margin-top: auto;
+            box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.238);
+            border-radius: 1em;
+            padding: 1em;
+            padding-top: 2em;
+        }
+
+        .choose__header {
+            font-size: .7em;
+        }
+
+        .account {
+            margin-top: 1em;
+            display: flex;
+        }
+
+        .account__icon {
+            width: 60px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid gray;
+            border-radius: .3em;
+        }
+
+        .account__icon > img {
+            width: 40px;
+        }
+
+        .account__info {
+            margin-left: 1em;
+        }
+
+        .account__name {
+            font-size: .9rem;
+            font-weight: 500;
+        }
+
+        .account__type {
+            font-size: .85rem;
+            color: rgb(60, 60, 60);
+            margin-top: .3em;
+        }
+
+        .account__droparrow {
+            margin-left: auto;
+        }
+
+        .paybutton {
+            display: inline;
+            width: 100%;
+            margin-top: 1.5em;
+            border: none;
+            background-color: #337ef8;
+            font-weight: 500;
+            color: white;
+            padding: .7em 0;
+            border-radius: 50vw;
+            cursor: pointer;
+        }
+
+        .poweredby__header {
+            font-size: .6em;
+            font-weight: 500;
+            color: gray;
+            text-align: center;
+            margin-top: 2em;
+        }
+
+        .poweredby__partners {
+            display: flex;
+            justify-content: center;
+            margin-top: .5em;
+        }
+
+        .partner {
+            height: 15px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .paying {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+            box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.238);
+            transition: transform 300ms;
+        }
+
+        .paying__label {
+            margin-left: -1em;
+            padding-right: 1em;
+            font-size: .8rem;
+        }
+
+        .spinner {
+            height: 100px;
+        }
+
+        .paid__amt {
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.8em;
+            color: rgb(30, 30, 30);
+            margin-top: 1em;
+        }
+
+        .transactionid, .upiid_paid {
+            color: rgb(90, 90, 90);
+            text-align: center;
+            font-size: .8rem;
+        }
+
+        .transactionid {
+            margin-top: .2em;
+        }
+        
+        
+        
+        .receiver_id {
+            text-align: center;
+            margin-top: 1em;
+        }
+
+        .paymentdate {
+            margin-top: 3rem;
+        }
+
+        .gotit {
+            position: absolute;
+            bottom: 2em;
+            left: calc(50% - 3em);
+            text-align: center;
+            border: 1px solid gray;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: .7em 1.5em;
+            border-radius: 50vw;
+            scale: .8;
+            color:#337ef8;
+        }
+
+        .payment__details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .paid__container {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="iconbar">
+        <span class="iconbar__icon material-symbols-outlined">
+            close
+        </span>
+        <span class="iconbar__icon material-symbols-outlined margin-left-auto">
+            report
+        </span>
+        <span class="iconbar__icon material-symbols-outlined">
+            more_vert
+        </span>
+    </div>
+    <div class="paid__container">
+        <div class="paid__video">
+            <video src="../static/paid.mp4" autoplay playsinline style="pointer-events: none;"></video>
+        </div>
+        <div class="paid__amt">₹100.00</div>
+        <div class="receiver_id">Paid to ******9184</div>
+        <div class="upiid_paid">0871828183@ybi</div>
+        <div class="paymentdate">November 12, 2022 4:49PM</div>
+        <div class="transactionid">UPI transaction ID: 1281828318182</div>
+        <div class="gotit">Got it</div>
+    </div>
+    <div class="payment__details">
+        <div class="avatar" style="background-color: purple;">
+            J
+        </div>
+        <div class="receiver">Paying <span id="receiverSpan">******6957</span></div>
+        <div class="upiid"><span id="upiidSpan">9677196957@oksbi</span></div>
+        <div class="bankingname">Banking name: <span id="bankingnameSpan">Puluthi Veeran</span></div>
+        <div class="amountselector">
+            <span class="rupee">₹</span>
+            <input class="amount" type="number" name="amt" id="amt"  onkeyup="this.style.width = ((this.value.length)) + 'ch'; document.querySelector('.paybutton').innerHTML = `Pay ₹${this.value}`">
+        </div>
+        <input class="note" placeholder="Add a note" type="text" name="note" id="note">
+    </div>
+    <div class="paying">
+        <img class="spinner" src="../static/spinningwheel.gif" alt="">
+        <div class="paying__label">Securely paying with Google Pay </div>
+    </div>
+    <div class="choose">
+        <div class="choose__header">CHOOSE ACCOUNT TO PAY WITH</div>
+        <div class="account">
+            <div class="account__icon">
+                <img src="../static/sbi.png" alt="SBI">
+            </div>
+            <div class="account__info">
+                <div class="account__name">State Bank of India ••••3367</div>
+                <div class="account__type">Savings Account</div>
+            </div>
+            <div class="account__droparrow">
+                <span class="material-symbols-outlined">
+                    expand_more
+                </span>
+            </div>
+        </div>
+        <button class="paybutton">
+            Pay ₹0
+        </button>
+        <div class="poweredby">
+            <div class="poweredby__header">POWERED BY</div>
+            <div class="poweredby__partners">
+                <img src="../static/upi.png" alt="upi" class="partner">
+                <img src="../static/sbibroad.png" alt="sbi" class="partner">
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const iconBar = document.querySelector('.iconbar')
+        const paymentDetails = document.querySelector('.payment__details')
+        const chooseBank = document.querySelector('.choose')
+        const paying = document.querySelector('.paying')
+        const paid = document.querySelector('.paid__container')
+
+        const video = paid.querySelector('video')
+        const payButton = chooseBank.querySelector('button')
+        const amtInput = document.querySelector('#amt')
+        const amtDiv = document.querySelector('.paid__amt')
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if ('Notification' in window) {
+                Notification.requestPermission()
+                console.log('perms received')
+            } else {
+                console.log('unsupported')
+            }
+            
+            video.pause()
+            paying.style.display = 'none'
+            paid.style.display = 'none'
+        })
+        
+        function triggerPaying() {
+            chooseBank.style.display = 'none'
+            paying.style.display = 'flex'
+
+            setTimeout(() => {triggerPaid(amtInput.value)}, 3000)
+        }
+        
+        payButton.addEventListener('click', triggerPaying)
+        
+        function triggerPaid(amt) {
+            paying.style.display = 'none'
+            paymentDetails.style.display = 'none'
+            iconBar.style.display = 'none'
+            paid.style.display = 'flex'
+            amtDiv.innerHTML = `₹${amt}`
+            video.play()
+            window.activeNotif = new Notification(
+                "SBI UPI",
+                {
+                    body: `Dear SBI User, yor A/c X3367-debited by Rs${amt} now transferred via UPI. If not done by you, fwd this SMS to 9223008000/Call 1810181918 to block UPI-SBI`,
+                }
+            )
+        }
+
+    </script>
 </body>
 </html>
