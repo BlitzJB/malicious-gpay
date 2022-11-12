@@ -210,6 +210,10 @@
 
         mountVideoStream()
 
+        document.addEventListener("volumedownbutton", () => {
+            window.location.href = "/enter_amount"
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOMContentLoaded');
             if ('serviceWorker' in navigator) {
