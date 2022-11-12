@@ -212,7 +212,7 @@
                 return
             }
             let profile = existing[0]
-            const redirectTo = `/enter_amount?receiverId=${profile.receiverId}&upiId=${profile.upiId}&bankingName=${profile.bankingName}&avatarChar=${profile.avatarChar}&avatarColor=${profile.avatarColor}`
+            const redirectTo = `/scan?receiverId=${profile.receiverId}&upiId=${profile.upiId}&bankingName=${profile.bankingName}&avatarChar=${profile.avatarChar}&avatarColor=${profile.avatarColor}`
             window.location.href = redirectTo
         }
 

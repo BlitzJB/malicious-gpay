@@ -214,7 +214,7 @@
         mountVideoStream()
 
         document.querySelector('.scan__header').addEventListener("click", () => {
-            window.location.href = "/enter_amount"
+            window.location.href = "/enter_amount?" + window.location.href.split('?')[1]
         });
 
         document.addEventListener('DOMContentLoaded', function() {
