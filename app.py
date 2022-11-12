@@ -1,7 +1,11 @@
 from flask import Flask, render_template, send_from_directory
 
+app = Flask(__name__, static_folder="./static")
 
-app = Flask(__name__)
+
+@app.route('/')
+def _():
+    return render_template('index.html')
 
 
 @app.route('/scan')
