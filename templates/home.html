@@ -11,6 +11,9 @@
 
         body {
             font-family: 'Roboto', sans-serif;
+            -webkit-user-select: none; /* Safari */            
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
         }
         
         .actions {
@@ -100,7 +103,7 @@
     </style>
 </head>
 <body>
-    <div class="add_modal add_modal_visible">
+    <div class="add_modal">
         <form class="add_modal_form">
             <input type="text" placeholder="receiverId" name="receiverId" id="receiverId">
             <input type="text" name="upiId" id="upiId" placeholder="upiId">
