@@ -1,0 +1,270 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+body {
+    padding: 0; margin: 0;
+    height: 100vh; width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    -webkit-user-select: none; /* Safari */            
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.paid__video {
+    display: flex;
+    margin-top: 7rem;
+}
+
+.paid__video > video {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iconbar {
+    display: flex;
+    margin-top: 1em;
+    padding: 0 1em;
+}
+
+.margin-left-auto {
+    margin-left: auto;
+}
+
+.iconbar__icon {
+    font-size: 1.5em;
+    padding: .1em .4em;
+    color: black;
+}
+
+.avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: white;
+    border-radius: 50vw;
+}
+
+.receiver, .upiid, .bankingname, .paymentdate, .upiid, .transactionid {
+    font-size: 14px;
+    text-align: center;
+}
+
+.bankingname {
+    font-size: 13px;
+}
+
+.receiver, .paymentdate {
+    font-weight: 500;
+    margin-top: 1em;
+}
+
+.upiid, .bankingname, .transactionid, .paymentdate {
+    color: rgb(69, 69, 69);
+}
+
+.paymentdate, .transactionid {
+    font-size: 12px;
+}
+
+.amountselector {
+    display: flex;
+    align-items:  center;
+    justify-content: center;
+    margin-top: 1.5em;
+}
+
+.rupee {
+    font-size: 1.6em;
+}
+
+.amount {
+    outline: none;
+    border: none;
+    font-size: 3rem;
+    width: 50px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.note {
+    width: 5em;
+    padding: 1em 2.2em;
+    border: none;
+    background-color: rgb(234, 238, 239);
+    border-radius: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.5em;
+}
+
+.note::placeholder {
+    color: rgb(79, 79, 79);
+}
+
+.choose {
+    margin-top: auto;
+    box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.238);
+    border-radius: 1em;
+    padding: 1em;
+    padding-top: 2em;
+}
+
+.choose__header {
+    font-size: .7em;
+}
+
+.account {
+    margin-top: 1em;
+    display: flex;
+}
+
+.account__icon {
+    width: 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: .3em;
+}
+
+.account__icon > img {
+    width: 40px;
+}
+
+.account__info {
+    margin-left: 1em;
+}
+
+.account__name {
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.account__type {
+    font-size: .85rem;
+    color: rgb(60, 60, 60);
+    margin-top: .3em;
+}
+
+.account__droparrow {
+    margin-left: auto;
+}
+
+.paybutton {
+    display: inline;
+    width: 100%;
+    margin-top: 1.5em;
+    border: none;
+    background-color: #337ef8;
+    font-weight: 500;
+    color: white;
+    padding: .7em 0;
+    border-radius: 50vw;
+    cursor: pointer;
+}
+
+.poweredby__header {
+    font-size: .6em;
+    font-weight: 500;
+    color: gray;
+    text-align: center;
+    margin-top: 2em;
+}
+
+.poweredby__partners {
+    display: flex;
+    justify-content: center;
+    margin-top: .5em;
+}
+
+.partner {
+    height: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.paying {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    box-shadow: 0 0 10px 0 rgba(51, 51, 51, 0.238);
+    transition: transform 300ms;
+}
+
+.paying__label {
+    margin-left: -1em;
+    padding-right: 1em;
+    font-size: .8rem;
+}
+
+.spinner {
+    height: 100px;
+}
+
+.paid__amt {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.8em;
+    color: rgb(30, 30, 30);
+    margin-top: 1em;
+}
+
+.transactionid, .upiid_paid {
+    color: rgb(90, 90, 90);
+    text-align: center;
+    font-size: .8rem;
+}
+
+.transactionid {
+    margin-top: .2em;
+}
+
+
+
+.receiver_id {
+    text-align: center;
+    margin-top: 1em;
+}
+
+.paymentdate {
+    margin-top: 3rem;
+}
+
+.gotit {
+    position: absolute;
+    bottom: 2em;
+    left: calc(50% - 3em);
+    text-align: center;
+    border: 1px solid gray;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: .7em 1.5em;
+    border-radius: 50vw;
+    scale: .8;
+    color:#337ef8;
+}
+
+.payment__details {
+    display: flex;
+    flex-direction: column;
+}
+
+.paid__container {
+    display: flex;
+    flex-direction: column;
+}
